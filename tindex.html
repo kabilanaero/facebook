@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fb todo</title>
+	<style>
+*{
+    margin:0;
+	padding:0;
+	box-sizing:border-box;
+}
+.todo{
+	margin-top: 20px;
+}
+.container{
+    width:30%;
+	margin:auto;
+}
+.left .profile{
+	 height:50px;
+	 width:50px;
+	 border-radius:50%;
+	 margin-right:12px;
+	 overflow:hidden;
+}
+.profile img{
+     max-width:110%;
+}
+.left{
+    display:flex;
+	align-items:center;
+}
+
+.col{
+    width:50%;
+	margin:auto;
+}
+.header{
+    padding:25px;
+	margin-bottom:20px;
+    background:skyblue;
+	color:#fff;
+	font-size:23px;
+    display:flex;
+	justify-content:space-between;
+}
+.header ul li{
+     list-style:none;
+	 display:inline-block;
+}
+.title{
+    font-size:30px;
+	background:#1877f2;
+	color:#fff;
+	padding:20px;
+	
+}
+textarea{
+     font-size:20px;
+}
+.yourpost p{
+    font-size:25px;
+}
+.yourpost span{
+    font-size:15px;
+}
+.icon{
+     display:flex;
+	 justify-content: space-between;
+}
+.img img{
+	max-width: 100%;
+}
+ .ic{
+     width:30px;
+	 height:30px;
+	 border-radius:50%;
+	 background:blue;
+	 color:#101010;
+	 display:flex;
+	 justify-content:center;
+	 align-items:center;
+} 
+.ic .fa-thumbs-up{
+     	 margin-right:5px;
+}
+.ic{
+      margin-right:12px;
+}
+.ic input{
+     border:0;
+	 font-size:24px;
+}
+.label{
+    text-align:center;
+	font-size:23px;
+}
+#text{
+     width:100%;
+}
+.btn{
+    text-align:center;
+}
+button{
+     padding:10px 20px;
+	 border:0;
+	 background:green;
+	 color:#fff;
+}
+</style>
+
+</head>
+<body>
+<section class="todo">
+	   
+	     <div class="container">
+ <h2 class="title">Facebook</h2>
+			 
+		     <div class="row">
+			     <div class="col">
+				     <form>
+					     <div class="label"><label for="text">Write your post here</label></div>
+					     <div class="textarea"><textarea rows="1" cols="10" id="text"></textarea></div>
+						 <div class="btn"><button type="submit" id="btn">Post</button></div>
+					 </form>
+				 </div>
+				 <div class="col">
+				     <h3>Your post</h3>
+					 <div id="post">
+					 
+					 </div>
+				 </div>
+			 </div>
+		 </div>
+	 </section>
+	 <script>
+	 let form = document.querySelector("form");
+let input = document.querySelector("#text");
+let post = document.querySelector("#post");
+let date = new Date();
+ 
+
+form.addEventListener("submit", function(e){
+   e.preventDefault();
+   readPost();
+});
+
+let data ={};
+function readPost(){
+     data["postData"] = input.value;
+     creatPost();
+}
+
+function creatPost(){
+     post.innerHTML += `
+	  <div class="yourpost"><p>${data.postData}</p><span>${date.toLocaleDateString()}</span>
+		 <span>${date.toLocaleTimeString()}</span>
+		 <div class="img">
+		     <img src="img/img2.jpg">
+		 </div>
+	  <div class="icon">
+		<iconify-icon class="ic" onclick="likePost()" icon="mdi:like"></iconify-icon><input type="text" value="" size="2" id="like">
+		<iconify-icon class="ic" onclick="editPost(this)" icon="material-symbols:edit"></iconify-icon>
+		<iconify-icon class="ic" onclick="deletePost(this)" icon="material-symbols:delete"></iconify-icon>
+		
+	  </div></div>`
+	  input.value = "";
+}
+
+function editPost(e){
+    input.value = e.parentElement.previousElementSibling.innerHTML;
+	e.parentElement.previousElementSibling.remove();
+	e.nextElementSibling.remove();
+	e.remove();
+}
+
+function deletePost(e){
+      e.parentElement.parentElement.remove();
+}
+
+function likePost(){
+     let count = Number(document.querySelector("#like").value);
+	 count+=1;
+	 document.querySelector("#like").value = count;
+}
+</script> 
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+	 </body>
+	 </section>
